@@ -1,0 +1,19 @@
+{
+  "name": "web-app-foundation-nextjs",
+  "version": "1.0.0",
+  "description": "Foundation for Web Apps that use Next.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niltonfernandesj/web-app-foundation-nextjs.git"
+  },
+  "author": "Nilton Fernandes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/niltonfernandesj/web-app-foundation-nextjs/issues"
+  },
+  "homepage": "https://github.com/niltonfernandesj/web-app-foundation-nextjs#readme"
+}
