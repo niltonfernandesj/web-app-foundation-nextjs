@@ -10,7 +10,9 @@
     "lint:prettier:check": "prettier --check .",
     "lint:prettier:fix": "prettier --write .",
     "migrations:create": "node-pg-migrate -m infra/migrations create",
-    "migrations:up": "node-pg-migrate -m infra/migrations --envPath .env.development up"
+    "migrations:up": "node-pg-migrate -m infra/migrations --envPath .env.development up",
+    "services:up": "docker compose -f infra/compose.yml up -d",
+    "services:down": "docker compose -f infra/compose.yml down"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,7 @@
   "homepage": "https://github.com/niltonfernandesj/web-app-foundation-nextjs#readme",
   "dependencies": {
     "dotenv": "^16.4.5",
+    "dotenv-expand": "^11.0.6",
     "next": "14.2.5",
     "node-pg-migrate": "^7.6.1",
     "pg": "8.12.0",
