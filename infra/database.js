@@ -1,11 +1,17 @@
 import { Client } from 'pg';
 
 async function query(query) {
-    const client = await getConnectedClient();
-    const response = await client.query(query);
-    await client.end();
+    let client = await getConnectedClient();
 
-    return response;
+    try {
+        const response = await client.query(query);
+        return response;
+    } catch (e) {
+        console.error(e);
+        throw e;
+    } finally {
+        await client.end();
+    }
 }
 
 async function getConnectedClient() {
