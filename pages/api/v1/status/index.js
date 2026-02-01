@@ -1,6 +1,12 @@
-function status(request, response) {
+import query from 'infra/database.js';
+
+async function status(request, response) {
+
+    const consulta = await query();
+    console.log(consulta);
+
     response.status(200).json({
-        "teste": "teste"
+        "query": consulta.rows[0].sum
     });
 }
 
