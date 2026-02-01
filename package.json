@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "test": "jest",
-    "test:watch": "jest --watchAll",
+    "test:watch": "jest --watchAll --runInBand",
     "lint:prettier:check": "prettier --check .",
     "lint:prettier:fix": "prettier --write .",
     "migrations:create": "node-pg-migrate -m infra/migrations create",
