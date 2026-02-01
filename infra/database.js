@@ -1,6 +1,14 @@
 import { Client } from 'pg';
 
 async function query(query) {
+    const client = await getConnectedClient();
+    const response = await client.query(query);
+    await client.end();
+
+    return response;
+}
+
+async function getConnectedClient() {
     const client = new Client({
         user: process.env.POSTGRES_USER,
         password: process.env.POSTGRES_PASSWORD,
@@ -9,11 +17,13 @@ async function query(query) {
         database: process.env.POSTGRES_DB,
         ssl: process.env.NODE_ENV && process.env.NODE_ENV === "production" ? true : false,
     });
-    await client.connect();
-    const response = await client.query(query);
-    await client.end();
 
-    return response;
+    await client.connect();
+
+    return client;
 }
 
-export default query;
+export default {
+    query,
+    getConnectedClient,
+};

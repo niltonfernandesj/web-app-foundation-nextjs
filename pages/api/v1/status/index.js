@@ -1,4 +1,4 @@
-import query from 'infra/database.js';
+import database from 'infra/database.js';
 
 async function status(request, response) {
 
@@ -12,7 +12,7 @@ async function status(request, response) {
 export default status;
 
 async function getDatabaseVersion() {
-    const response = await query("SHOW server_version");
+    const response = await database.query("SHOW server_version");
     const version = response.rows[0].server_version;
     const versionNumber = version ? version.split(" ")[0] : "";
 
@@ -20,14 +20,14 @@ async function getDatabaseVersion() {
 }
 
 async function getDatabaseMaxConnections() {
-    const response = await query("SHOW max_connections");
+    const response = await database.query("SHOW max_connections");
     const maxConnections = response.rows[0].max_connections;
 
     return Number(maxConnections);
 }
 
 async function getDatabaseActiveConnections() {
-    const response = await query({
+    const response = await database.query({
         text: "SELECT count(*) FROM pg_stat_activity WHERE datname=$1",
         values: [process.env.POSTGRES_DB]
     });

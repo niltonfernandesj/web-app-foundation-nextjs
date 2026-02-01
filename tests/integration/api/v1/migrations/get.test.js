@@ -1,4 +1,4 @@
-import query from 'infra/database';
+import database from 'infra/database';
 
 beforeAll(async () => {
     await cleanDatabase();
@@ -14,5 +14,5 @@ test("Retrieve pending migrations to run", async () => {
 })
 
 async function cleanDatabase() {
-    return await query("drop schema public cascade; create schema public;");
+    return await database.query("drop schema public cascade; create schema public;");
 }
