@@ -1,0 +1,8 @@
+services:
+  database:
+    image: postgres
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: "local_password"
+    ports:
+      - "5432:5432"
