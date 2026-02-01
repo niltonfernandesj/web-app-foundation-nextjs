@@ -27,7 +27,10 @@ async function getDatabaseMaxConnections() {
 }
 
 async function getDatabaseActiveConnections() {
-    const response = await query("SELECT count(*) FROM pg_stat_activity WHERE datname='local_db'");
+    const response = await query({
+        text: "SELECT count(*) FROM pg_stat_activity WHERE datname=$1",
+        values: [process.env.POSTGRES_DB]
+    });
     const activeConnections = response.rows[0].count;
 
     return Number(activeConnections);
