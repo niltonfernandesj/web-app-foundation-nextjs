@@ -1,3 +1,9 @@
+import query from 'infra/database';
+
+beforeAll(async () => {
+    await cleanDatabase();
+})
+
 test("Retrieve pending migrations to run", async () => {
     const response = await fetch("http://localhost:3000/api/v1/migrations", {
         method: "POST"
@@ -6,4 +12,9 @@ test("Retrieve pending migrations to run", async () => {
 
     expect(response.status).toBe(201);
     expect(Array.isArray(responseBody)).toBe(true);
-})
+    expect(responseBody.length).toBeGreaterThan(0);
+});
+
+async function cleanDatabase() {
+    return await query("drop schema public cascade; create schema public;");
+}
