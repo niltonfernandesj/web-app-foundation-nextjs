@@ -2,12 +2,33 @@ import query from 'infra/database.js';
 
 async function status(request, response) {
 
-    const consulta = await query();
-    console.log(consulta);
-
     response.status(200).json({
-        "query": consulta.rows[0].sum
+        version: await getDatabaseVersion(),
+        max_connections: await getDatabaseMaxConnections(),
+        active_connections: await getDatabaseActiveConnections(),
     });
 }
 
 export default status;
+
+async function getDatabaseVersion() {
+    const response = await query("SHOW server_version");
+    const version = response.rows[0].server_version;
+    const versionNumber = version ? version.split(" ")[0] : "";
+
+    return versionNumber;
+}
+
+async function getDatabaseMaxConnections() {
+    const response = await query("SHOW max_connections");
+    const maxConnections = response.rows[0].max_connections;
+
+    return Number(maxConnections);
+}
+
+async function getDatabaseActiveConnections() {
+    const response = await query("SELECT count(*) FROM pg_stat_activity WHERE datname='local_db'");
+    const activeConnections = response.rows[0].count;
+
+    return Number(activeConnections);
+}

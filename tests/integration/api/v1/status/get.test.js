@@ -3,5 +3,7 @@ test("Retrieve application status info", async () => {
     const responseBody = await response.json();
 
     expect(response.status).toBe(200);
-    expect(responseBody.query).toBe(2);
+    expect(responseBody.version).toBe("18.1");
+    expect(responseBody.max_connections).toBe(100);
+    expect(responseBody.active_connections).toBe(1);
 })

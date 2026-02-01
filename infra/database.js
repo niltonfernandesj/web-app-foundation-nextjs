@@ -1,6 +1,6 @@
 import { Client } from 'pg';
 
-async function query() {
+async function query(query) {
     const client = new Client({
         user: process.env.POSTGRES_USER,
         password: process.env.POSTGRES_PASSWORD,
@@ -9,7 +9,7 @@ async function query() {
         database: process.env.POSTGRES_DB,
     });
     await client.connect();
-    const response = await client.query('SELECT 1+1 as sum;');
+    const response = await client.query(query);
     await client.end();
 
     return response;
