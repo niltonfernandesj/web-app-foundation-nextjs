@@ -1,7 +1,9 @@
 import database from 'infra/database';
+import waitForWebServer from "tests/orchestrator";
 
 beforeAll(async () => {
     await cleanDatabase();
+    await waitForWebServer();
 })
 
 test("Retrieve pending migrations to run", async () => {
