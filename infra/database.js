@@ -32,7 +32,9 @@ async function getConnectedClient() {
   return client;
 }
 
-export default {
+const database = {
   query,
   getConnectedClient,
 };
+
+export default database;
