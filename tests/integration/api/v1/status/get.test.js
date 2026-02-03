@@ -1,4 +1,4 @@
-import waitForWebServer from "tests/orchestrator";
+import waitForWebServer from "tests/orchestrator.js";
 
 beforeAll(async () => {
     await waitForWebServer();
