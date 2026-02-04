@@ -10,7 +10,6 @@
     "lint:prettier:check": "prettier --check .",
     "lint:prettier:fix": "prettier --write .",
     "lint:eslint:check": "next lint --dir .",
-    "lint:eslint:fix": "next lint --dir . --fix",
     "migrations:create": "node-pg-migrate -m infra/migrations create",
     "migrations:up": "node-pg-migrate -m infra/migrations --envPath .env.development up",
     "services:up": "docker compose -f infra/compose.yml up -d",
