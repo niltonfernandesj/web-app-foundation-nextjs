@@ -1,6 +1,7 @@
 import retry from "async-retry";
+import database from "infra/database";
 
-export default async function waitForWebServer() {
+async function waitForWebServer() {
   await retry(getWebServerStatus, {
     retries: 100,
     maxTimeout: 1000,
@@ -16,3 +17,15 @@ async function getWebServerStatus() {
 
   return response.status;
 }
+async function cleanDatabase() {
+  return await database.query(
+    "drop schema public cascade; create schema public;",
+  );
+}
+
+const orchestrator = {
+  waitForWebServer,
+  cleanDatabase,
+};
+
+export default orchestrator;

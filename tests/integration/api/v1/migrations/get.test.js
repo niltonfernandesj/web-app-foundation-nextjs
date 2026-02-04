@@ -1,22 +1,19 @@
-import database from "infra/database";
-import waitForWebServer from "tests/orchestrator.js";
+import orchestrator from "tests/orchestrator.js";
 
 beforeAll(async () => {
-  await waitForWebServer();
-  await cleanDatabase();
+  await orchestrator.waitForWebServer();
+  await orchestrator.cleanDatabase();
 });
 
-test("Retrieve pending migrations to run", async () => {
-  const response = await fetch("http://localhost:3000/api/v1/migrations");
-  const responseBody = await response.json();
+describe("GET /api/v1/migrations", () => {
+  describe("Anonymous user", () => {
+    test("Retrieve pending migrations to run", async () => {
+      const response = await fetch("http://localhost:3000/api/v1/migrations");
+      const responseBody = await response.json();
 
-  expect(response.status).toBe(200);
-  expect(Array.isArray(responseBody)).toBe(true);
-  expect(responseBody.length).toBeGreaterThan(0);
+      expect(response.status).toBe(200);
+      expect(Array.isArray(responseBody)).toBe(true);
+      expect(responseBody.length).toBeGreaterThan(0);
+    });
+  });
 });
-
-async function cleanDatabase() {
-  return await database.query(
-    "drop schema public cascade; create schema public;",
-  );
-}
