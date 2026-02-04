@@ -27,7 +27,11 @@ async function runMigrations(request, response) {
         dryRun: false,
       });
 
-      return response.status(201).json(runnerResponse);
+      if (runnerResponse.length > 0) {
+        return response.status(201).json(runnerResponse);
+      }
+
+      return response.status(200).json(runnerResponse);
     }
   } catch (e) {
     console.error(e);
