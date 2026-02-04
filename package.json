@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run services:up && npm run wait-for-postgres && npm run migrations:up && next dev",
+    "postdev": "npm run services:down",
     "test": "npm run services:up && concurrently -n next,jest --hide next -k -s command-jest \"next dev\" \"jest --runInBand --verbose\"",
+    "posttest": "npm run services:down",
     "test:watch": "jest --watchAll --runInBand --verbose",
     "lint:prettier:check": "prettier --check .",
     "lint:prettier:fix": "prettier --write .",
